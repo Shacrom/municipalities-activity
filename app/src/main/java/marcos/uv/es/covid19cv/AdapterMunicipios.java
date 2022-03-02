@@ -85,7 +85,7 @@ public class AdapterMunicipios extends
         private final TextView textView;
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.txtMain);
+            textView = (TextView) view.findViewById(R.id.listaView);
         }
         public TextView getTextView() {
             return textView;
