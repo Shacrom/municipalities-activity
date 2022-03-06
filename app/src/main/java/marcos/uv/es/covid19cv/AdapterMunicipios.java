@@ -21,17 +21,29 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
-public class AdapterMunicipios extends
-        RecyclerView.Adapter<AdapterMunicipios.ViewHolder> {
+public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.ViewHolder> {
     private ArrayList<Municipio> municipios;
     Context context;
+
+    public AdapterMunicipios(ArrayList<Municipio> municipios) {
+        this.municipios = municipios;
+    }
+
     public AdapterMunicipios(Context c)
     {
         context=c;
         Init();
     }
+
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
+
+
+
     public void Init() {
         municipios = new ArrayList<Municipio>();
         InputStream is = context.getResources().openRawResource(R.raw.municipios_cv);
@@ -43,7 +55,8 @@ public class AdapterMunicipios extends
             while ((n = reader.read(buffer)) != -1) {
                 writer.write(buffer, 0, n);
             }
-            JSONArray jsonArray = new JSONArray(writer);
+            JSONArray jsonArray = (JSONArray) new JSONObject(writer.toString()).getJSONObject("result").getJSONArray("records");
+
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 int id = jsonObject.getInt("_id");
@@ -75,7 +88,8 @@ public class AdapterMunicipios extends
 
     }
     @Override
-    public int getItemCount() {return municipios.size();
+    public int getItemCount() {
+        return municipios.size();
     }
     /**
      * Provide a reference to the type of views that you are using
@@ -83,25 +97,33 @@ public class AdapterMunicipios extends
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
+
         public ViewHolder(View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.listaView);
+            // Put this line in the code of the ViewHolder constructor
+            view.setTag(this);
+
         }
+
         public TextView getTextView() {
             return textView;
         }
+
     }
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.activity_main, viewGroup, false);
+                .inflate(R.layout.lista_recycle, viewGroup, false);
+        // Put this line in the code of the onCreateViewHolder method
+        view.setOnClickListener(mOnItemClickListener);
         return new ViewHolder(view);
     }
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        holder.getTextView().setText(String.valueOf(municipios.get(position).getMunicipio()));
+        holder.getTextView().setText(municipios.get(position).getMunicipio());
     }
 }
