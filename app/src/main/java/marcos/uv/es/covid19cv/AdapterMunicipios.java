@@ -21,12 +21,16 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.lang.reflect.GenericDeclaration;
+import java.lang.reflect.TypeVariable;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.ViewHolder> {
     private ArrayList<Municipio> municipios;
     Context context;
+    private ItemClickListener mClickListener;
+    private View.OnClickListener mOnItemClickListener;
 
     public AdapterMunicipios(ArrayList<Municipio> municipios) {
         this.municipios = municipios;
@@ -37,12 +41,6 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         context=c;
         Init();
     }
-
-    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
-        mOnItemClickListener = itemClickListener;
-    }
-
-
 
     public void Init() {
         municipios = new ArrayList<Municipio>();
@@ -87,36 +85,58 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         }
 
     }
+
     @Override
     public int getItemCount() {
         return municipios.size();
     }
+
+    public Municipio getItemAtPosition(int position) {
+        return municipios.get(position);
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
+        //private ItemClickListener mClickListener;
 
         public ViewHolder(View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.listaView);
             // Put this line in the code of the ViewHolder constructor
             view.setTag(this);
-
+            // Put this line in the code of the ViewHolder constructor
+            view.setOnClickListener((View.OnClickListener) this);
         }
+
+        /*@Override
+        public void onClick(View view) {
+            if (mClickListener != null)
+                mClickListener.onRVItemClick(view, getAdapterPosition());
+        }*/
 
         public TextView getTextView() {
             return textView;
         }
 
+
+
     }
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
+
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.lista_recycle, viewGroup, false);
+
         // Put this line in the code of the onCreateViewHolder method
         view.setOnClickListener(mOnItemClickListener);
         return new ViewHolder(view);
@@ -125,5 +145,16 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         holder.getTextView().setText(municipios.get(position).getMunicipio());
+    }
+
+    
+
+    public interface ItemClickListener {
+        void onRVItemClick(View view, int position);
+    }
+
+    // El Activity que incluya el Recycler View que utilice este adapter llamará a este método para indicar que es el listener.
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
 }
