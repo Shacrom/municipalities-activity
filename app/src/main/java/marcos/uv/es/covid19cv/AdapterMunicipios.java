@@ -1,10 +1,13 @@
 package marcos.uv.es.covid19cv;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,10 +30,10 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.ViewHolder> {
-    private ArrayList<Municipio> municipios;
-    Context context;
-    private ItemClickListener mClickListener;
-    private View.OnClickListener mOnItemClickListener;
+    private static ArrayList<Municipio> municipios;
+    static Context context;
+    //private ItemClickListener mClickListener;
+    //private View.OnClickListener mOnItemClickListener;
 
     public AdapterMunicipios(ArrayList<Municipio> municipios) {
         this.municipios = municipios;
@@ -91,6 +94,10 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         return municipios.size();
     }
 
+    public ArrayList<Municipio> getMunicipios() {
+        return municipios;
+    }
+
     public Municipio getItemAtPosition(int position) {
         return municipios.get(position);
     }
@@ -100,7 +107,7 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
      * (custom ViewHolder).
      */
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView textView;
         //private ItemClickListener mClickListener;
 
@@ -110,25 +117,25 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
             // Put this line in the code of the ViewHolder constructor
             view.setTag(this);
             // Put this line in the code of the ViewHolder constructor
-            view.setOnClickListener((View.OnClickListener) this);
+            view.setOnClickListener(this);
         }
-
-        /*@Override
-        public void onClick(View view) {
-            if (mClickListener != null)
-                mClickListener.onRVItemClick(view, getAdapterPosition());
-        }*/
 
         public TextView getTextView() {
             return textView;
         }
 
 
-
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            Intent intent = new Intent(context,MunicipalDetails.class);
+            intent.putExtra("municipio", municipios.get(position).getMunicipio());
+            context.startActivity(intent);
+        }
     }
-    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+    /*public void setOnItemClickListener(View.OnClickListener itemClickListener) {
         mOnItemClickListener = itemClickListener;
-    }
+    }*/
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -138,17 +145,17 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
                 .inflate(R.layout.lista_recycle, viewGroup, false);
 
         // Put this line in the code of the onCreateViewHolder method
-        view.setOnClickListener(mOnItemClickListener);
+        //view.setOnClickListener(mOnItemClickListener);
         return new ViewHolder(view);
     }
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         holder.getTextView().setText(municipios.get(position).getMunicipio());
+        //holder.getTextView().setOnClickListener(view -> mClickListener.onRVItemClick(view,position));
     }
 
-    
-
+/*
     public interface ItemClickListener {
         void onRVItemClick(View view, int position);
     }
@@ -156,5 +163,5 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
     // El Activity que incluya el Recycler View que utilice este adapter llamará a este método para indicar que es el listener.
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
-    }
+    }*/
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,18 +17,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MunicipalitiesActivity extends AppCompatActivity {
 
-
-
-    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // This viewHolder will have all required values.
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            // Implement the listener!
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +29,9 @@ public class MunicipalitiesActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterMunicipios adapter = new AdapterMunicipios(this);
-        adapter.setOnItemClickListener(onItemClickListener);
-
         recyclerView.setAdapter(adapter);
+
+
 
         //adapter.setClickListener(MainActivity.this);
 
@@ -65,9 +58,10 @@ public class MunicipalitiesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.new_game:
                 // Do something when the user clicks on the new game
+                Toast.makeText(this, "new game clicked", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.help:
-                // Do something when the user clicks on the help item
+                Toast.makeText(this, "help clicked", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
