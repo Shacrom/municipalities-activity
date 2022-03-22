@@ -108,22 +108,19 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
      */
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private final TextView textView;
+        private final TextView municipalityName;
+        private final TextView codigoPostal;
         //private ItemClickListener mClickListener;
 
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.listaView);
+            municipalityName = (TextView) view.findViewById(R.id.nameMunicipality);
+            codigoPostal = (TextView) view.findViewById(R.id.codigoPostal);
             // Put this line in the code of the ViewHolder constructor
             view.setTag(this);
             // Put this line in the code of the ViewHolder constructor
             view.setOnClickListener(this);
         }
-
-        public TextView getTextView() {
-            return textView;
-        }
-
 
         @Override
         public void onClick(View view) {
@@ -157,8 +154,8 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        holder.getTextView().setText(municipios.get(position).getMunicipio());
-        //holder.getTextView().setOnClickListener(view -> mClickListener.onRVItemClick(view,position));
+        holder.municipalityName.setText(municipios.get(position).getMunicipio());
+        holder.codigoPostal.setText("CP: " + String.valueOf(municipios.get(position).getCodMunicipio()));
     }
 
 /*

@@ -2,6 +2,7 @@ package marcos.uv.es.covid19cv;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,9 @@ public class MunicipalitiesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterMunicipios adapter = new AdapterMunicipios(this);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, new LinearLayoutManager(this).getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
 
 
@@ -72,12 +76,12 @@ public class MunicipalitiesActivity extends AppCompatActivity {
                 // Do something when the user clicks on the new game
                 Uri uri = Uri.parse( "https://www.twitter.com" );
                 startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
-                Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Abriendo navegador", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.localization:
-                Uri localization = Uri.parse( "https://www.google.com/maps/place/"+ "/" );
+                Uri localization = Uri.parse( "https://www.google.com/maps/" );
                 startActivity( new Intent( Intent.ACTION_VIEW, localization ) );
-                Toast.makeText(this, "help clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Abriendo maps", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
