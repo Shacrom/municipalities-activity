@@ -130,6 +130,12 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
             int position = getAdapterPosition();
             Intent intent = new Intent(context,MunicipalDetails.class);
             intent.putExtra("municipio", municipios.get(position).getMunicipio());
+            intent.putExtra("casosPCR", String.valueOf(municipios.get(position).getCasosPCR()));
+            intent.putExtra("incidenciaPCR", municipios.get(position).getIncidencia());
+            intent.putExtra("casosPCR14dias", String.valueOf(municipios.get(position).getCasosPcr14dias()));
+            intent.putExtra("incidenciaPCR14dias", municipios.get(position).getIncidencia14dias());
+            intent.putExtra("defunciones", String.valueOf(municipios.get(position).getDefunciones()));
+            intent.putExtra("tasaDefuncion", municipios.get(position).getTasaDefuncion());
             context.startActivity(intent);
         }
     }

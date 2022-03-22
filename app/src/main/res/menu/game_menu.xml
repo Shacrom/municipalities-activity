@@ -2,12 +2,12 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/new_game"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="New game"
+        android:id="@+id/open_page"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="Abrir página"
         app:showAsAction="always" />
     <item
-        android:id="@+id/help"
+        android:id="@+id/localization"
         android:icon="@android:drawable/ic_menu_help"
-        android:title="Help" />
+        android:title="Localización" />
 </menu>

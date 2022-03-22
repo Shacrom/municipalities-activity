@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -43,6 +47,14 @@ public class MunicipalitiesActivity extends AppCompatActivity {
 
             // Implement the listener! E.g., start a new activity to show details of the municipality. The municipality can be passed as an extra in the intent
         }*/
+
+        FloatingActionButton fab = findViewById(R.id.fbutton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MunicipalitiesActivity.this, ReportActivity.class));
+            }
+        });
     }
 
     @Override
@@ -56,11 +68,15 @@ public class MunicipalitiesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.new_game:
+            case R.id.open_page:
                 // Do something when the user clicks on the new game
-                Toast.makeText(this, "new game clicked", Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse( "https://www.twitter.com" );
+                startActivity( new Intent( Intent.ACTION_VIEW, uri ) );
+                Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.help:
+            case R.id.localization:
+                Uri localization = Uri.parse( "https://www.google.com/maps/place/"+ "/" );
+                startActivity( new Intent( Intent.ACTION_VIEW, localization ) );
                 Toast.makeText(this, "help clicked", Toast.LENGTH_SHORT).show();
                 return true;
             default:

@@ -17,12 +17,25 @@
         android:text="Municipios"
         android:textSize="30dp"
         android:layout_marginBottom="20dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rlist"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-         />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+    </FrameLayout>
+
 
 </LinearLayout>
