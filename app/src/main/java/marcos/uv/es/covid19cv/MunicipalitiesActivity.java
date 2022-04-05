@@ -36,10 +36,6 @@ public class MunicipalitiesActivity extends AppCompatActivity {
         AdapterMunicipios adapter = new AdapterMunicipios(this);
         recyclerView.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, new LinearLayoutManager(this).getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
-
 
         //adapter.setClickListener(MainActivity.this);
 

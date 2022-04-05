@@ -2,10 +2,9 @@
     <string name="app_name">Covid19CV</string>
 
     <string-array name="sintomas">
-        <item>Symtoms</item>
         <item>Fever or chills</item>
         <item>Cough</item>
-        <item>Shortness of breath or difficulty breathing</item>
+        <item>Difficulty breathing</item>
         <item>Fatigue</item>
         <item>Muscle or body aches</item>
         <item>Headache</item>

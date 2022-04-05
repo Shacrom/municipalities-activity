@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2685" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2685" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/activity_main.xml" value="0.1285140562248996" />
         <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/activity_municipal_details.xml" value="0.33" />
-        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/activity_report.xml" value="0.25" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/activity_report.xml" value="0.22" />
         <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/lista_recycle.xml" value="0.358695652173913" />
         <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/layout/spinners.xml" value="0.33" />
         <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/menu/game_menu.xml" value="0.5" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2685" />
+        <entry key="..\:/Users/angel/AndroidStudioProjects/municipalities-activity/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2685" />
       </map>
     </option>
   </component>
