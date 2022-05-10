@@ -50,6 +50,7 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         InputStream is = context.getResources().openRawResource(R.raw.municipios_cv);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
+
         try {
             Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             int n;
@@ -136,9 +137,6 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
             context.startActivity(intent);
         }
     }
-    /*public void setOnItemClickListener(View.OnClickListener itemClickListener) {
-        mOnItemClickListener = itemClickListener;
-    }*/
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -151,6 +149,7 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         //view.setOnClickListener(mOnItemClickListener);
         return new ViewHolder(view);
     }
+
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
@@ -158,13 +157,4 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         holder.codigoPostal.setText("CP: " + String.valueOf(municipios.get(position).getCodMunicipio()));
     }
 
-/*
-    public interface ItemClickListener {
-        void onRVItemClick(View view, int position);
-    }
-
-    // El Activity que incluya el Recycler View que utilice este adapter llamará a este método para indicar que es el listener.
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }*/
 }

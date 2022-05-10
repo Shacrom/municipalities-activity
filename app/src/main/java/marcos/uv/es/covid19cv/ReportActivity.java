@@ -78,7 +78,7 @@ public class ReportActivity extends AppCompatActivity {
         gd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
+                /*GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
                 holder.cb.toggle();
                 GridViewAdapter.getIsSelected().put(i,holder.cb.isChecked());
                 if (holder.cb.isChecked() == true) {
@@ -88,12 +88,13 @@ public class ReportActivity extends AppCompatActivity {
                     Toast.makeText(ReportActivity.this, "Sintoma desseleccionado: " + holder.cb.getText(), Toast.LENGTH_SHORT).show();
                     checkNum--;
 
-                }
+                }*/
             }
         });
 
         saveReport = (Button) findViewById(R.id.newReport);
         radioGroup = (RadioGroup) findViewById(R.id.radio);
+        ReportDbHelper db = new ReportDbHelper(getApplicationContext());
         saveReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,18 +102,16 @@ public class ReportActivity extends AppCompatActivity {
                 Date date;
                 Report newReport;
                 radioButton = (RadioButton) findViewById(selectId);
-                try {
-                    date = new SimpleDateFormat("dd-MM-yyyy").parse(String.valueOf(dateSyn.getText()));
-                    if(radioButton.getText().equals("Yes"))
-                        newReport = new Report(String.valueOf(codeID.getText()), date ,mAdapter.getList(),true,String.valueOf(municipalityName.getText()));
-                    else
-                        newReport = new Report(String.valueOf(codeID.getText()), date ,mAdapter.getList(),false,String.valueOf(municipalityName.getText()));
 
-                    Toast.makeText(ReportActivity.this, "Nuevo reporte guardado\n" + newReport, Toast.LENGTH_SHORT).show();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Toast.makeText(ReportActivity.this, "Nuevo reporte fallo \n", Toast.LENGTH_SHORT).show();
-                }
+                if(radioButton.getText().equals("Yes"))
+                    newReport = new Report(String.valueOf(codeID.getText()), String.valueOf(dateSyn.getText()) ,mAdapter.getList(),true,String.valueOf(municipalityName.getText()));
+                else
+                    newReport = new Report(String.valueOf(codeID.getText()), String.valueOf(dateSyn.getText()) ,mAdapter.getList(),false,String.valueOf(municipalityName.getText()));
+
+                db.InsertReport(db, newReport);
+
+                Toast.makeText(ReportActivity.this, "Nuevo reporte guardado\n" + newReport, Toast.LENGTH_SHORT).show();
+
 
 
             }

@@ -1,17 +1,18 @@
 package marcos.uv.es.covid19cv;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
 public class Report {
     private String IDCode;
-    private Date startSyn;
+    private String startSyn;
     private ArrayList<SymtomModel> listSyn;
     private boolean contact;
     private String munipality;
 
-    public Report(String IDCode, Date startSyn, ArrayList<SymtomModel> listSyn, boolean contact, String munipality) {
+    public Report(String IDCode, String startSyn, ArrayList<SymtomModel> listSyn, boolean contact, String munipality) {
         this.IDCode = IDCode;
         this.startSyn = startSyn;
         this.listSyn = listSyn;
@@ -27,11 +28,11 @@ public class Report {
         this.IDCode = IDCode;
     }
 
-    public Date getStartSyn() {
+    public String getStartSyn() {
         return startSyn;
     }
 
-    public void setStartSyn(Date startSyn) {
+    public void setStartSyn(String startSyn) {
         this.startSyn = startSyn;
     }
 
@@ -61,12 +62,25 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" +
-                "IDCode='" + IDCode + '\'' +
-                ", startSyn=" + startSyn +
-                ", listSyn=" + listSyn +
-                ", contact=" + contact +
-                ", munipality='" + munipality + '\'' +
-                '}';
+        String report;
+
+        report = "Start symtom: " + startSyn + "\n";
+
+        report += "Symtoms: " + "\n";
+
+        for(int i = 0; i< listSyn.size(); i++) {
+            if (listSyn.get(i).isSelected())
+                report += listSyn.get(i).getTitle() + "\n";
+        }
+
+        if(contact)
+            report += "Contact: Yes\n";
+        else
+            report += "Contact: No\n";
+
+        report+= "Municipality: " + munipality + "\n";
+
+
+        return report;
     }
 }

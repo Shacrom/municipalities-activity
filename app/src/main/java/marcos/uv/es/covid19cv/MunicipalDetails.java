@@ -1,8 +1,11 @@
 package marcos.uv.es.covid19cv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MunicipalDetails extends AppCompatActivity {
     TextView municipalityName;
@@ -46,6 +54,53 @@ public class MunicipalDetails extends AppCompatActivity {
         tasaDefuncion.append(intent.getStringExtra("tasaDefuncion"));
 
         Toast.makeText(this, municipalityName.getText() + " seleccionado", Toast.LENGTH_SHORT).show();
+
+        ReportDbHelper db = new ReportDbHelper(getApplicationContext());
+        Cursor reportsByMunicipality = db.FindReportsByMunicipality(intent.getStringExtra("municipio"));
+
+        /*final int idIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
+        final int municipalityIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);
+        final int contactIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.CONTACT);
+
+        final ArrayList<Report> products = new ArrayList<>();
+
+
+        while (reportsByMunicipality.moveToNext()){
+            // Read the values of a row in the table using the indexes acquired above
+            String id = reportsByMunicipality.getString(idIndex);
+            String name = reportsByMunicipality.getString(municipalityIndex);
+            final boolean contact = reportsByMunicipality.getInt(contactIndex) > 0;
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("dd-MM-yyyy").parse("03-04-2022");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            products.add(new Report(id, date, new ArrayList<SymtomModel>(),contact, name));
+
+        }
+
+        for(int i = 0; i< products.size();i++){
+            System.out.println("CodeID: " + products.get(i).getIDCode());
+            System.out.println("Municipality: " + products.get(i).getMunipality());
+            if(products.get(i).isContact())
+                System.out.println("Contact: Yes");
+            else
+                System.out.println("Contact: No");
+        }*/
+
+
+
+        RecyclerView recyclerView = findViewById(R.id.reportlist);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterReport reportsAdapter = new AdapterReport(this, reportsByMunicipality, 0);
+        recyclerView.setAdapter(reportsAdapter);
+
+        /*RecyclerView recyclerView2 = findViewById(R.id.reportlist);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        AdapterMunicipios adapter = new AdapterMunicipios(this);
+        recyclerView2.setAdapter(adapter);*/
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

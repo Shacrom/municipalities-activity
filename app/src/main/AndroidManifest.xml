@@ -13,6 +13,9 @@
             android:name=".ReportActivity"
             android:exported="false" />
         <activity
+            android:name=".ReportDetails"
+            android:exported="false" />
+        <activity
             android:name=".MunicipalDetails"
             android:exported="false" />
         <activity
