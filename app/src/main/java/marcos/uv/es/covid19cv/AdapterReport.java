@@ -66,8 +66,8 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(context,ReportDetails.class);
-            intent.putExtra("munipality", items.get(position).getMunipality());
+            Intent intent = new Intent(context,ReportActivity.class);
+            intent.putExtra("municipio", items.get(position).getMunipality());
             intent.putExtra("startSyn", String.valueOf(items.get(position).getStartSyn()));
             if(items.get(position).isContact())
                 intent.putExtra("contact", "yes");

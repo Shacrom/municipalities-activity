@@ -40,7 +40,6 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        //Spinner spinner = findViewById(R.id.planets_spinner);
         final String[] select_planets =
                 getApplicationContext().getResources().getStringArray(R.array.sintomas);
         ArrayList<SymtomModel> categoryModelArrayList = new ArrayList<>();
@@ -52,24 +51,27 @@ public class ReportActivity extends AppCompatActivity {
             categoryModelArrayList.add(categoryModel);
         }
 
-        /*AdapterListSpinner myAdapter = new AdapterListSpinner(ReportActivity.this, 0, categoryModelArrayList);
-        spinner.setAdapter(myAdapter);
-
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        Map<String, ?> category = sharedPreferences.getAll();
-        Toast.makeText(getApplicationContext(), "" + category, Toast.LENGTH_LONG).show();
-*/
         Intent intent = getIntent();
         municipalityName = findViewById(R.id.municipality);
         codeID = findViewById(R.id.diagnosticCode);
         dateSyn = findViewById(R.id.symptomDate);
 
-        codeID.setText(UUID.randomUUID().toString());
-
         try {
             municipalityName.append(intent.getStringExtra("municipio"));
+            codeID.append(intent.getStringExtra("IDCode"));
+            dateSyn.append(intent.getStringExtra("startSyn"));
+
+            if(intent.getStringExtra("contact").equals("yes"))
+                radioButton = (RadioButton) findViewById(R.id.yesButton);
+            else
+                radioButton = (RadioButton) findViewById(R.id.noButton);
+
+            radioButton.setChecked(true);
+
         }catch (Exception e){
-            System.out.println("No municipio");
+            System.out.println("No municipio o fecha");
+            codeID.setText(UUID.randomUUID().toString());
+
         }
 
         gd = (GridView) findViewById(R.id.gridView);
@@ -94,12 +96,12 @@ public class ReportActivity extends AppCompatActivity {
 
         saveReport = (Button) findViewById(R.id.newReport);
         radioGroup = (RadioGroup) findViewById(R.id.radio);
+
         ReportDbHelper db = new ReportDbHelper(getApplicationContext());
         saveReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int selectId = radioGroup.getCheckedRadioButtonId();
-                Date date;
                 Report newReport;
                 radioButton = (RadioButton) findViewById(selectId);
 
