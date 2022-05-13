@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,28 +26,22 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 public class MunicipalitiesActivity extends AppCompatActivity {
-
+    private HTTPConnector connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.rlist);
+
+        if (connection == null || connection.getStatus() != AsyncTask.Status.RUNNING) {
+            connection = new HTTPConnector();
+            connection.execute();
+        }
+
+        /*RecyclerView recyclerView = findViewById(R.id.rlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterMunicipios adapter = new AdapterMunicipios(this);
-        recyclerView.setAdapter(adapter);
-
-
-        //adapter.setClickListener(MainActivity.this);
-
-        /*@Override
-        public void onRVItemClick(View view, int position) {
-            Toast.makeText(this, "Has pulsado en " +
-                            adapter.getItemAtPosition(position).getMunicipio() + " que es el item número " + position,
-                    Toast.LENGTH_SHORT).show(); //If you want to use the method getItemAtPosition you should implement it in the adapter.
-
-            // Implement the listener! E.g., start a new activity to show details of the municipality. The municipality can be passed as an extra in the intent
-        }*/
+        recyclerView.setAdapter(adapter);*/
 
         FloatingActionButton fab = findViewById(R.id.fbutton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +51,9 @@ public class MunicipalitiesActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

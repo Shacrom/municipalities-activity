@@ -26,6 +26,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.TypeVariable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
@@ -47,16 +49,31 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
 
     public void Init() {
         municipios = new ArrayList<Municipio>();
-        InputStream is = context.getResources().openRawResource(R.raw.municipios_cv);
+        //InputStream is = context.getResources().openRawResource(R.raw.municipios_cv);
+        String url = "https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=382b283c-03fa-433e9967-9e064e84f936&limit=1000";
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
 
         try {
-            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("GET");
+            //add request header
+            con.setRequestProperty("user-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+            con.setRequestProperty("accept", "application/json;");
+            con.setRequestProperty("accept-language", "es");
+            con.connect();
+            int responseCode = con.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw new IOException("HTTP error code: " + responseCode);
+            }
+
+            Reader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
             int n;
             while ((n = reader.read(buffer)) != -1) {
                 writer.write(buffer, 0, n);
             }
+
             JSONArray jsonArray = (JSONArray) new JSONObject(writer.toString()).getJSONObject("result").getJSONArray("records");
 
             for(int i=0; i<jsonArray.length(); i++){
@@ -74,18 +91,14 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
                 Municipio municipio = new Municipio(id, codMunicipio, municipi, casosPCR, incidencia, casosPcr14dias, incidencia14dias, defunciones, tasaDefuncion);
                 municipios.add(municipio);
             }
+
+            reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e){
             e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
     }

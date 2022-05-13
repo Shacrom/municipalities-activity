@@ -28,19 +28,21 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
     }
 
     private void Init(Cursor reportsByMunicipality) {
-        final int idIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
+        final int codeIDIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
         final int dateIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.SYMPTOM_START_DATE);
         final int municipalityIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);
         final int contactIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.CONTACT);
 
+        items.clear();
+
         while (reportsByMunicipality.moveToNext()){
             // Read the values of a row in the table using the indexes acquired above
-            String id = reportsByMunicipality.getString(idIndex);
+            String diagnosticCode = reportsByMunicipality.getString(codeIDIndex);
             String name = reportsByMunicipality.getString(municipalityIndex);
             boolean contact = reportsByMunicipality.getInt(contactIndex) > 0;
             String date = reportsByMunicipality.getString(dateIndex);
 
-            items.add(new Report(id, date, new ArrayList<SymtomModel>(),contact, name));
+            items.add(new Report(diagnosticCode, date, new ArrayList<SymtomModel>(),contact, name));
             //items.get(0).toString();
         }
     }

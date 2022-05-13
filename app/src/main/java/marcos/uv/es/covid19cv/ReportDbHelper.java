@@ -59,8 +59,8 @@ public class ReportDbHelper extends SQLiteOpenHelper {
         super.onDowngrade(db, oldVersion, newVersion);
     }
 
-    public Cursor InsertReport(ReportDbHelper dbhelper, Report newReport){
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
+    public Cursor InsertReport(Report newReport){
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ReportContract.ReportEntry.DIAGNOSTIC_CODE,newReport.getIDCode());
         values.put(ReportContract.ReportEntry.SYMPTOM_START_DATE,String.valueOf(newReport.getStartSyn()));
@@ -73,11 +73,45 @@ public class ReportDbHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public Cursor UpdateReport(){
-        return null;
+    public int UpdateReport(Report reportUpdate){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        ContentValues updateReport = new ContentValues();
+        updateReport.put(ReportContract.ReportEntry.DIAGNOSTIC_CODE, reportUpdate.getIDCode());
+        updateReport.put(ReportContract.ReportEntry.SYMPTOM_START_DATE, reportUpdate.getStartSyn());
+        updateReport.put(ReportContract.ReportEntry.CONTACT, reportUpdate.isContact());
+        updateReport.put(ReportContract.ReportEntry.MUNICIPALITY, reportUpdate.getMunipality());
+
+// Filter results WHERE "title" = 'My Title'
+        String selection = ReportContract.ReportEntry.DIAGNOSTIC_CODE + " = ?";
+        String[] selectionArgs = {reportUpdate.getIDCode()};
+
+
+        int count = db.update(
+                ReportContract.ReportEntry.TABLE_NAME,   // The table to query
+                updateReport,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs
+        );
+
+        return count;
     }
-    public Cursor DeleteReport(){
-        return null;
+    public int DeleteReport(String codeID){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selection = ReportContract.ReportEntry.DIAGNOSTIC_CODE + " = ?";
+        String[] selectionArgs = {codeID};
+
+
+        int count = db.delete(
+                ReportContract.ReportEntry.TABLE_NAME,   // The table to query
+                selection,              // The columns for the WHERE clause
+                selectionArgs
+        );
+
+        return count;
     }
 
     public Cursor FindReportsByMunicipality(String municipalityName ){

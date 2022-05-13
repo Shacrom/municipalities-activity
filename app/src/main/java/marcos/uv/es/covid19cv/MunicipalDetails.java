@@ -58,40 +58,6 @@ public class MunicipalDetails extends AppCompatActivity {
         ReportDbHelper db = new ReportDbHelper(getApplicationContext());
         Cursor reportsByMunicipality = db.FindReportsByMunicipality(intent.getStringExtra("municipio"));
 
-        /*final int idIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
-        final int municipalityIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);
-        final int contactIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.CONTACT);
-
-        final ArrayList<Report> products = new ArrayList<>();
-
-
-        while (reportsByMunicipality.moveToNext()){
-            // Read the values of a row in the table using the indexes acquired above
-            String id = reportsByMunicipality.getString(idIndex);
-            String name = reportsByMunicipality.getString(municipalityIndex);
-            final boolean contact = reportsByMunicipality.getInt(contactIndex) > 0;
-            Date date = null;
-            try {
-                date = new SimpleDateFormat("dd-MM-yyyy").parse("03-04-2022");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            products.add(new Report(id, date, new ArrayList<SymtomModel>(),contact, name));
-
-        }
-
-        for(int i = 0; i< products.size();i++){
-            System.out.println("CodeID: " + products.get(i).getIDCode());
-            System.out.println("Municipality: " + products.get(i).getMunipality());
-            if(products.get(i).isContact())
-                System.out.println("Contact: Yes");
-            else
-                System.out.println("Contact: No");
-        }*/
-
-
-
         RecyclerView recyclerView = findViewById(R.id.reportlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterReport reportsAdapter = new AdapterReport(this, reportsByMunicipality, 0);
@@ -108,6 +74,7 @@ public class MunicipalDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent report = new Intent(MunicipalDetails.this,ReportActivity.class);
                 report.putExtra("municipio", String.valueOf(intent.getStringExtra("municipio")));
+                MunicipalDetails.super.finish();
                 startActivity(report);
             }
         });

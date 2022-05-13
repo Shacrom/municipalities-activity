@@ -34,17 +34,17 @@ public class ReportActivity extends AppCompatActivity {
     private GridView gd;
     private GridViewAdapter mAdapter;
     private Button saveReport;
-    private int checkNum;
+    private Button deleteReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        final String[] select_planets =
+        final String[] select_sintomas =
                 getApplicationContext().getResources().getStringArray(R.array.sintomas);
         ArrayList<SymtomModel> categoryModelArrayList = new ArrayList<>();
 
-        for (String s : select_planets) {
+        for (String s : select_sintomas) {
             SymtomModel categoryModel = new SymtomModel();
             categoryModel.setTitle(s);
             categoryModel.setSelected(false);
@@ -55,6 +55,9 @@ public class ReportActivity extends AppCompatActivity {
         municipalityName = findViewById(R.id.municipality);
         codeID = findViewById(R.id.diagnosticCode);
         dateSyn = findViewById(R.id.symptomDate);
+
+        saveReport = (Button) findViewById(R.id.newReport);
+        deleteReport = (Button) findViewById(R.id.deleteReport);
 
         try {
             municipalityName.append(intent.getStringExtra("municipio"));
@@ -67,10 +70,13 @@ public class ReportActivity extends AppCompatActivity {
                 radioButton = (RadioButton) findViewById(R.id.noButton);
 
             radioButton.setChecked(true);
-
+            saveReport.setText("Actualizar");
+            deleteReport.setVisibility(View.VISIBLE);
         }catch (Exception e){
             System.out.println("No municipio o fecha");
             codeID.setText(UUID.randomUUID().toString());
+            deleteReport.setVisibility(View.INVISIBLE);
+
 
         }
 
@@ -94,7 +100,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        saveReport = (Button) findViewById(R.id.newReport);
+
         radioGroup = (RadioGroup) findViewById(R.id.radio);
 
         ReportDbHelper db = new ReportDbHelper(getApplicationContext());
@@ -110,16 +116,31 @@ public class ReportActivity extends AppCompatActivity {
                 else
                     newReport = new Report(String.valueOf(codeID.getText()), String.valueOf(dateSyn.getText()) ,mAdapter.getList(),false,String.valueOf(municipalityName.getText()));
 
-                db.InsertReport(db, newReport);
+                if(saveReport.getText().equals("Guardar")) {
+                    db.InsertReport(newReport);
+                    Toast.makeText(ReportActivity.this, "Nuevo reporte guardado\n" + newReport, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    db.UpdateReport(newReport);
+                    Toast.makeText(ReportActivity.this, "Reporte actualizado\n" + newReport, Toast.LENGTH_SHORT).show();
+                }
 
-                Toast.makeText(ReportActivity.this, "Nuevo reporte guardado\n" + newReport, Toast.LENGTH_SHORT).show();
-
-
+                startActivity(new Intent(ReportActivity.this, MunicipalitiesActivity.class));
 
             }
         });
 
+        deleteReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.DeleteReport(String.valueOf(codeID.getText()));
+                startActivity(new Intent(ReportActivity.this, MunicipalitiesActivity.class));
+                Toast.makeText(ReportActivity.this, "Reporte eliminado\n", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
