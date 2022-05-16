@@ -39,10 +39,19 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
             // Read the values of a row in the table using the indexes acquired above
             String diagnosticCode = reportsByMunicipality.getString(codeIDIndex);
             String name = reportsByMunicipality.getString(municipalityIndex);
+            ArrayList<SymtomModel> symptoms = new ArrayList<SymtomModel>();
+            String [] list_sintomas = context.getApplicationContext().getResources().getStringArray(R.array.sintomas);
+            int j = 0;
+            for(int i = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.SYMPTOMS[0]);
+                i <= reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.SYMPTOMS[ReportContract.ReportEntry.SYMPTOMS.length-1]);
+                i++){
+                symptoms.add(new SymtomModel(list_sintomas[j],reportsByMunicipality.getInt(i) > 0));
+                j++;
+            }
             boolean contact = reportsByMunicipality.getInt(contactIndex) > 0;
             String date = reportsByMunicipality.getString(dateIndex);
 
-            items.add(new Report(diagnosticCode, date, new ArrayList<SymtomModel>(),contact, name));
+            items.add(new Report(diagnosticCode, date, symptoms,contact, name));
             //items.get(0).toString();
         }
     }

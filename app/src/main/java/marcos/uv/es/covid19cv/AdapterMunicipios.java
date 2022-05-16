@@ -47,10 +47,14 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         Init();
     }
 
+    public static void setMunicipios(ArrayList<Municipio> municipios) {
+        AdapterMunicipios.municipios = municipios;
+    }
+
     public void Init() {
         municipios = new ArrayList<Municipio>();
         //InputStream is = context.getResources().openRawResource(R.raw.municipios_cv);
-        String url = "https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=382b283c-03fa-433e9967-9e064e84f936&limit=1000";
+        /*String url = "https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=382b283c-03fa-433e9967-9e064e84f936&limit=1000";
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
 
@@ -99,7 +103,7 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
             e.printStackTrace();
         } catch (JSONException e){
             e.printStackTrace();
-        }
+        }*/
 
     }
 

@@ -45,9 +45,7 @@ public class ReportActivity extends AppCompatActivity {
         ArrayList<SymtomModel> categoryModelArrayList = new ArrayList<>();
 
         for (String s : select_sintomas) {
-            SymtomModel categoryModel = new SymtomModel();
-            categoryModel.setTitle(s);
-            categoryModel.setSelected(false);
+            SymtomModel categoryModel = new SymtomModel(s,false);
             categoryModelArrayList.add(categoryModel);
         }
 
@@ -63,6 +61,7 @@ public class ReportActivity extends AppCompatActivity {
             municipalityName.append(intent.getStringExtra("municipio"));
             codeID.append(intent.getStringExtra("IDCode"));
             dateSyn.append(intent.getStringExtra("startSyn"));
+            categoryModelArrayList = (ArrayList<SymtomModel>) intent.getSerializableExtra("listSyn");
 
             if(intent.getStringExtra("contact").equals("yes"))
                 radioButton = (RadioButton) findViewById(R.id.yesButton);
@@ -76,17 +75,15 @@ public class ReportActivity extends AppCompatActivity {
             System.out.println("No municipio o fecha");
             codeID.setText(UUID.randomUUID().toString());
             deleteReport.setVisibility(View.INVISIBLE);
-
-
         }
 
         gd = (GridView) findViewById(R.id.gridView);
         mAdapter = new GridViewAdapter(categoryModelArrayList,this);
         gd.setAdapter(mAdapter);
-        gd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /*GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
+                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
                 holder.cb.toggle();
                 GridViewAdapter.getIsSelected().put(i,holder.cb.isChecked());
                 if (holder.cb.isChecked() == true) {
@@ -96,9 +93,9 @@ public class ReportActivity extends AppCompatActivity {
                     Toast.makeText(ReportActivity.this, "Sintoma desseleccionado: " + holder.cb.getText(), Toast.LENGTH_SHORT).show();
                     checkNum--;
 
-                }*/
+                }
             }
-        });
+        });*/
 
 
         radioGroup = (RadioGroup) findViewById(R.id.radio);

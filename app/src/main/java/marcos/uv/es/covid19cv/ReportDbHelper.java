@@ -22,19 +22,21 @@ public class ReportDbHelper extends SQLiteOpenHelper {
                     ReportContract.ReportEntry._ID + " INTEGER PRIMARY KEY," +
                     ReportContract.ReportEntry.DIAGNOSTIC_CODE + " TEXT," +
                     ReportContract.ReportEntry.SYMPTOM_START_DATE + " DATE," +
-                    ReportContract.ReportEntry.SYMPTOM_FEVER_OR_CHILLS + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_COUGH + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_DIFICULTY_BREATHING + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_FATIGUE + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_MUSCLE_OR_BODY_ACHES + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_HEADACHE + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_NEW_LOSS_OF_TASTE_OR_SMELL + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_SORE_THROAT + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_CONGESTION_OR_RUNNY_NOSE + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_NAUSEA_OR_VOMITING + " BOOLEAN, " +
-                    ReportContract.ReportEntry.SYMPTOM_DIARRHEA + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[0] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[1] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[2] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[3] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[4] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[5] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[6] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[7] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[8] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[9] + " BOOLEAN, " +
+                    ReportContract.ReportEntry.SYMPTOMS[10] + " BOOLEAN, " +
                     ReportContract.ReportEntry.CONTACT + " BOOLEAN, " +
                     ReportContract.ReportEntry.MUNICIPALITY + " TEXT)";
+
+
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ReportContract.ReportEntry.TABLE_NAME;
@@ -64,7 +66,10 @@ public class ReportDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ReportContract.ReportEntry.DIAGNOSTIC_CODE,newReport.getIDCode());
         values.put(ReportContract.ReportEntry.SYMPTOM_START_DATE,String.valueOf(newReport.getStartSyn()));
-        values.put(ReportContract.ReportEntry.SYMPTOM_FEVER_OR_CHILLS,newReport.getListSyn().get(0).isSelected());
+
+        for (int i = 0; i < newReport.getListSyn().size(); i++)
+            values.put(ReportContract.ReportEntry.SYMPTOMS[i],newReport.getListSyn().get(i).isSelected());
+
         values.put(ReportContract.ReportEntry.CONTACT,newReport.isContact());
         values.put(ReportContract.ReportEntry.MUNICIPALITY,newReport.getMunipality());
 
@@ -81,6 +86,10 @@ public class ReportDbHelper extends SQLiteOpenHelper {
         ContentValues updateReport = new ContentValues();
         updateReport.put(ReportContract.ReportEntry.DIAGNOSTIC_CODE, reportUpdate.getIDCode());
         updateReport.put(ReportContract.ReportEntry.SYMPTOM_START_DATE, reportUpdate.getStartSyn());
+
+        for (int i = 0; i < reportUpdate.getListSyn().size(); i++)
+            updateReport.put(ReportContract.ReportEntry.SYMPTOMS[i],reportUpdate.getListSyn().get(i).isSelected());
+
         updateReport.put(ReportContract.ReportEntry.CONTACT, reportUpdate.isContact());
         updateReport.put(ReportContract.ReportEntry.MUNICIPALITY, reportUpdate.getMunipality());
 
@@ -137,6 +146,7 @@ public class ReportDbHelper extends SQLiteOpenHelper {
                 null,                   // don't filter by row groups
                 sortOrder               // The sort order
         );
+
 
         /*final int idIndex = cursor.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
         final int municipalityIndex = cursor.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);

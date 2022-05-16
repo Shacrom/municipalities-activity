@@ -17,7 +17,6 @@ import java.util.HashMap;
 
 public class GridViewAdapter extends BaseAdapter {
     private ArrayList<SymtomModel> list;
-    private static HashMap<Integer,Boolean> isSelected;
     private Context mContext;
     private LayoutInflater mInflater = null;
 
@@ -25,14 +24,6 @@ public class GridViewAdapter extends BaseAdapter {
         this.list = list;
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
-        isSelected = new HashMap<Integer,Boolean>();
-        initDate();
-    }
-
-    private void initDate() {
-        for (int i=0;i<list.size();i++){
-            getIsSelected().put(i,false);
-        }
     }
 
 
@@ -66,7 +57,7 @@ public class GridViewAdapter extends BaseAdapter {
         }
         holder.syn.setText(list.get(i).getTitle());
 
-        holder.cb.setChecked(getIsSelected().get(i));
+        holder.cb.setChecked(list.get(i).isSelected());
 
         holder.cb.setTag(i);
 
@@ -74,7 +65,6 @@ public class GridViewAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 list.get(i).setSelected(isChecked);
-                Toast.makeText(mContext, list.get(i).getTitle() + " check: " + list.get(i).isSelected(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -84,15 +74,6 @@ public class GridViewAdapter extends BaseAdapter {
     static class ViewHolder{
         CheckBox cb;
         TextView syn;
-    }
-    public static HashMap<Integer,Boolean> getIsSelected() {
-        return isSelected;
-
-    }
-
-    public static void setIsSelected(HashMap<Integer,Boolean> isSelected) {
-        GridViewAdapter.isSelected = isSelected;
-
     }
 
     public ArrayList<SymtomModel> getList() {
