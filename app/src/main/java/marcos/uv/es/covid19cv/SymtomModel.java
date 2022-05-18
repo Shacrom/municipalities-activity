@@ -6,11 +6,6 @@ public class SymtomModel implements Serializable {
     private boolean selected;
     private String title;
 
-    public SymtomModel() {
-        this.selected = false;
-        this.title = "";
-    }
-
     public SymtomModel(String title, boolean selected) {
         this.selected = selected;
         this.title = title;

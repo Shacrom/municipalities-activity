@@ -5,13 +5,13 @@ public class Municipio {
     private int codMunicipio;
     private String municipio;
     private int casosPCR;
-    private String incidencia;
+    private Float incidencia;
     private int casosPcr14dias;
-    private String incidencia14dias;
+    private Float incidencia14dias;
     private int defunciones;
     private String tasaDefuncion;
 
-    public Municipio(int id, int codMunicipio, String municipio, int casosPCR, String incidencia, int casosPcr14dias, String incidencia14dias, int defunciones, String tasaDefuncion) {
+    public Municipio(int id, int codMunicipio, String municipio, int casosPCR, Float incidencia, int casosPcr14dias, Float incidencia14dias, int defunciones, String tasaDefuncion) {
         this.id = id;
         this.codMunicipio = codMunicipio;
         this.municipio = municipio;
@@ -55,11 +55,11 @@ public class Municipio {
         this.casosPCR = casosPCR;
     }
 
-    public String getIncidencia() {
+    public Float getIncidencia() {
         return incidencia;
     }
 
-    public void setIncidencia(String incidencia) {
+    public void setIncidencia(Float incidencia) {
         this.incidencia = incidencia;
     }
 
@@ -71,11 +71,11 @@ public class Municipio {
         this.casosPcr14dias = casosPcr14dias;
     }
 
-    public String getIncidencia14dias() {
+    public Float getIncidencia14dias() {
         return incidencia14dias;
     }
 
-    public void setIncidencia14dias(String incidencia14dias) {
+    public void setIncidencia14dias(Float incidencia14dias) {
         this.incidencia14dias = incidencia14dias;
     }
 
