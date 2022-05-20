@@ -58,12 +58,6 @@ public class MunicipalitiesActivity extends AppCompatActivity {
             connection.execute();
         }
 
-
-        /*RecyclerView recyclerView = findViewById(R.id.rlist);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterMunicipios adapter = new AdapterMunicipios(this);
-        recyclerView.setAdapter(adapter);*/
-
         FloatingActionButton fab = findViewById(R.id.fbutton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,19 +270,7 @@ public class MunicipalitiesActivity extends AppCompatActivity {
 
                 }
             });
-
-
-
-
-
         }
-
     }
-
-
-
-
-
-
 }
 

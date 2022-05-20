@@ -61,11 +61,6 @@ public class MunicipalDetails extends AppCompatActivity {
         AdapterReport reportsAdapter = new AdapterReport(this, reportsByMunicipality, 0);
         recyclerView.setAdapter(reportsAdapter);
 
-        /*RecyclerView recyclerView2 = findViewById(R.id.reportlist);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        AdapterMunicipios adapter = new AdapterMunicipios(this);
-        recyclerView2.setAdapter(adapter);*/
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -147,39 +147,6 @@ public class ReportDbHelper extends SQLiteOpenHelper {
                 sortOrder               // The sort order
         );
 
-
-        /*final int idIndex = cursor.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
-        final int municipalityIndex = cursor.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);
-        final int contactIndex = cursor.getColumnIndex(ReportContract.ReportEntry.CONTACT);
-
-        final ArrayList<Report> products = new ArrayList<>();
-
-
-        while (cursor.moveToNext()){
-            // Read the values of a row in the table using the indexes acquired above
-            String id = cursor.getString(idIndex);
-            String name = cursor.getString(municipalityIndex);
-            final boolean contact = cursor.getInt(contactIndex) > 0;
-            Date date = null;
-            try {
-                date = new SimpleDateFormat("dd-MM-yyyy").parse("03-04-2022");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            products.add(new Report(id, date, new ArrayList<SymtomModel>(),contact, name));
-
-        }
-
-        for(int i = 0; i< products.size();i++){
-            System.out.println("CodeID: " + products.get(i).getIDCode());
-            System.out.println("Municipality: " + products.get(i).getMunipality());
-            if(products.get(i).isContact())
-                System.out.println("Contact: Yes");
-            else
-                System.out.println("Contact: No");
-        }*/
-
         return cursor;
     }
 }

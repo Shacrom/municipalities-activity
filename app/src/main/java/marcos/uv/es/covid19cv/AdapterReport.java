@@ -52,7 +52,6 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
             String date = reportsByMunicipality.getString(dateIndex);
 
             items.add(new Report(diagnosticCode, date, symptoms,contact, name));
-            //items.get(0).toString();
         }
     }
 
@@ -97,7 +96,6 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
                 .inflate(R.layout.lista_reports, viewGroup, false);
 
         // Put this line in the code of the onCreateViewHolder method
-        //view.setOnClickListener(mOnItemClickListener);
         return new ViewHolder(view);
     }
 

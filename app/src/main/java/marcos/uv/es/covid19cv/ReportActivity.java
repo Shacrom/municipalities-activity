@@ -80,23 +80,6 @@ public class ReportActivity extends AppCompatActivity {
         gd = (GridView) findViewById(R.id.gridView);
         mAdapter = new GridViewAdapter(categoryModelArrayList,this);
         gd.setAdapter(mAdapter);
-        /*gd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GridViewAdapter.ViewHolder holder = (GridViewAdapter.ViewHolder) view.getTag();
-                holder.cb.toggle();
-                GridViewAdapter.getIsSelected().put(i,holder.cb.isChecked());
-                if (holder.cb.isChecked() == true) {
-                    checkNum++;
-                    Toast.makeText(ReportActivity.this, "Sintoma seleccionado: " + holder.cb.getText(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ReportActivity.this, "Sintoma desseleccionado: " + holder.cb.getText(), Toast.LENGTH_SHORT).show();
-                    checkNum--;
-
-                }
-            }
-        });*/
-
 
         radioGroup = (RadioGroup) findViewById(R.id.radio);
 
