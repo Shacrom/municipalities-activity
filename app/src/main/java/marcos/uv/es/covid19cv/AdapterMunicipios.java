@@ -197,14 +197,15 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         //if(municipiosFiltered != null && municipiosFiltered.size() != 0) {
+            holder.cardView.setTag(position);
             Municipio municipio = municipios.get(position);
 
             if (municipio.getIncidencia14dias() > 1500)
-                holder.cardView.setBackgroundColor(Color.parseColor("#E14949"));
+                holder.cardView.setBackground(ContextCompat.getDrawable(context,R.drawable.high_color));
             else if (municipio.getIncidencia14dias() > 1000)
-                holder.cardView.setBackgroundColor(Color.parseColor("#DEDE5D"));
+                holder.cardView.setBackground(ContextCompat.getDrawable(context,R.drawable.mid_color));
             else
-                holder.cardView.setBackgroundColor(Color.parseColor("#6ADE5D"));
+                holder.cardView.setBackground(ContextCompat.getDrawable(context,R.drawable.low_color));
 
 
             holder.municipalityName.setText(municipio.getMunicipio());

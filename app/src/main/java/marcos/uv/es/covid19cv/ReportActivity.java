@@ -69,12 +69,14 @@ public class ReportActivity extends AppCompatActivity {
                 radioButton = (RadioButton) findViewById(R.id.noButton);
 
             radioButton.setChecked(true);
+            this.setTitle("Editar Reporte");
             saveReport.setText("Actualizar");
             deleteReport.setVisibility(View.VISIBLE);
         }catch (Exception e){
             System.out.println("No municipio o fecha");
             codeID.setText(UUID.randomUUID().toString());
             deleteReport.setVisibility(View.INVISIBLE);
+            this.setTitle("Nuevo Reporte");
         }
 
         gd = (GridView) findViewById(R.id.gridView);
@@ -101,6 +103,7 @@ public class ReportActivity extends AppCompatActivity {
                     Toast.makeText(ReportActivity.this, "Nuevo reporte guardado\n" + newReport, Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    newReport.setId(intent.getIntExtra("_id", 0));
                     db.UpdateReport(newReport);
                     Toast.makeText(ReportActivity.this, "Reporte actualizado\n" + newReport, Toast.LENGTH_SHORT).show();
                 }
@@ -113,7 +116,7 @@ public class ReportActivity extends AppCompatActivity {
         deleteReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.DeleteReport(String.valueOf(codeID.getText()));
+                db.DeleteReport(String.valueOf(intent.getIntExtra("_id", 0)));
                 startActivity(new Intent(ReportActivity.this, MunicipalitiesActivity.class));
                 Toast.makeText(ReportActivity.this, "Reporte eliminado\n", Toast.LENGTH_SHORT).show();
             }

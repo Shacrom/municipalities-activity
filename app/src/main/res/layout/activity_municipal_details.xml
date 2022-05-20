@@ -12,48 +12,192 @@
     android:layout_gravity="center"
     tools:context=".MunicipalDetails">
 
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        app:cardCornerRadius="8dp">
+        <LinearLayout
+            android:id="@+id/cardMunicipality"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Casos PCR+: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/casosPCR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Casos PCR+" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Incidència acumulada PCR+: "/>
+
+                    <TextView
+                        android:id="@+id/incidenciaPCR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Incidència acumulada PCR+"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Casos PCR+ 14 dies: "/>
+
+                    <TextView
+                        android:id="@+id/casosPCR14dias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Casos PCR+ 14 dies" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Incidència acumulada PCR+14:"/>
+
+                    <TextView
+                        android:id="@+id/incidenciaPCR14dias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Incidència acumulada PCR+14"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Defuncions: "/>
+
+                    <TextView
+                        android:id="@+id/defunciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Defuncions" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taxa de defunció: "/>
+                    <TextView
+                        android:id="@+id/tasaDefuncion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Taxa de defunció" />
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
     <TextView
-        android:id="@+id/casosPCR"
+        android:id="@+id/reportlistMunicipality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Casos PCR+: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
-    <TextView
-        android:id="@+id/incidenciaPCR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Incidència acumulada PCR+: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
-    <TextView
-        android:id="@+id/casosPCR14dias"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Casos PCR+ 14 dies: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
-    <TextView
-        android:id="@+id/incidenciaPCR14dias"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Incidència acumulada PCR+14: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
-    <TextView
-        android:id="@+id/defunciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Defuncions: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
-    <TextView
-        android:id="@+id/tasaDefuncion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Taxa de defunció: "
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="322dp" />
+        android:layout_marginTop="10dp"
+        android:text="Lista de reportes: "
+        android:textSize="18dp"
+        android:textStyle="bold"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -65,6 +209,8 @@
         android:layout_gravity="bottom|end"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add"
+        app:borderWidth="0dp"
+        android:backgroundTint="@color/purple_250"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         />

@@ -28,6 +28,7 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
     }
 
     private void Init(Cursor reportsByMunicipality) {
+        final int idIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry._ID);
         final int codeIDIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.DIAGNOSTIC_CODE);
         final int dateIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.SYMPTOM_START_DATE);
         final int municipalityIndex = reportsByMunicipality.getColumnIndex(ReportContract.ReportEntry.MUNICIPALITY);
@@ -37,6 +38,7 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
 
         while (reportsByMunicipality.moveToNext()){
             // Read the values of a row in the table using the indexes acquired above
+            int idReport = reportsByMunicipality.getInt(idIndex);
             String diagnosticCode = reportsByMunicipality.getString(codeIDIndex);
             String name = reportsByMunicipality.getString(municipalityIndex);
             ArrayList<SymtomModel> symptoms = new ArrayList<SymtomModel>();
@@ -51,7 +53,9 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
             boolean contact = reportsByMunicipality.getInt(contactIndex) > 0;
             String date = reportsByMunicipality.getString(dateIndex);
 
-            items.add(new Report(diagnosticCode, date, symptoms,contact, name));
+            Report report = new Report(diagnosticCode, date, symptoms,contact, name);
+            report.setId(idReport);
+            items.add(report);
         }
     }
 
@@ -77,6 +81,7 @@ public class AdapterReport extends RecyclerView.Adapter<AdapterReport.ViewHolder
         public void onClick(View view) {
             int position = getAdapterPosition();
             Intent intent = new Intent(context,ReportActivity.class);
+            intent.putExtra("_id", items.get(position).getId());
             intent.putExtra("municipio", items.get(position).getMunipality());
             intent.putExtra("startSyn", String.valueOf(items.get(position).getStartSyn()));
             if(items.get(position).isContact())

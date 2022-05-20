@@ -84,8 +84,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
+            app:borderWidth="0dp"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@android:drawable/ic_menu_add"
+            android:backgroundTint="@color/purple_250"/>
     </FrameLayout>
 
 

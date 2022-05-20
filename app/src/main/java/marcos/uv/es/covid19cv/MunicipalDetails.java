@@ -1,6 +1,8 @@
 package marcos.uv.es.covid19cv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.accessibility.AccessibilityViewCommand;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ public class MunicipalDetails extends AppCompatActivity {
     private TextView incidenciaPCR14dias;
     private TextView defunciones;
     private TextView tasaDefuncion;
+    private LinearLayout cardMunicipality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class MunicipalDetails extends AppCompatActivity {
         setContentView(R.layout.activity_municipal_details);
 
         Intent intent = getIntent();
+        cardMunicipality = findViewById(R.id.cardMunicipality);
         casosPCR = findViewById(R.id.casosPCR);
         incidenciaPCR = findViewById(R.id.incidenciaPCR);
         casosPCR14dias = findViewById(R.id.casosPCR14dias);
@@ -46,12 +51,19 @@ public class MunicipalDetails extends AppCompatActivity {
 
         this.setTitle(intent.getStringExtra("municipio"));
 
-        casosPCR.append(intent.getStringExtra("casosPCR"));
-        incidenciaPCR.append(intent.getStringExtra("incidenciaPCR"));
-        casosPCR14dias.append(intent.getStringExtra("casosPCR14dias"));
-        incidenciaPCR14dias.append(intent.getStringExtra("incidenciaPCR14dias"));
-        defunciones.append(intent.getStringExtra("defunciones"));
-        tasaDefuncion.append(intent.getStringExtra("tasaDefuncion"));
+        casosPCR.setText(intent.getStringExtra("casosPCR"));
+        incidenciaPCR.setText(intent.getStringExtra("incidenciaPCR"));
+        casosPCR14dias.setText(intent.getStringExtra("casosPCR14dias"));
+        incidenciaPCR14dias.setText(intent.getStringExtra("incidenciaPCR14dias"));
+        defunciones.setText(intent.getStringExtra("defunciones"));
+        tasaDefuncion.setText(intent.getStringExtra("tasaDefuncion"));
+
+        if (Float.valueOf(intent.getStringExtra("incidenciaPCR14dias")) > 1500)
+            cardMunicipality.setBackground(ContextCompat.getDrawable(this,R.drawable.high_color));
+        else if (Float.valueOf(intent.getStringExtra("incidenciaPCR14dias")) > 1000)
+            cardMunicipality.setBackground(ContextCompat.getDrawable(this,R.drawable.mid_color));
+        else
+            cardMunicipality.setBackground(ContextCompat.getDrawable(this,R.drawable.low_color));
 
         ReportDbHelper db = new ReportDbHelper(getApplicationContext());
         Cursor reportsByMunicipality = db.FindReportsByMunicipality(intent.getStringExtra("municipio"));
@@ -66,8 +78,7 @@ public class MunicipalDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent report = new Intent(MunicipalDetails.this,ReportActivity.class);
-                report.putExtra("municipio", String.valueOf(intent.getStringExtra("municipio")));
-                MunicipalDetails.super.finish();
+                report.putExtra("municipio", intent.getStringExtra("municipio"));
                 startActivity(report);
             }
         });

@@ -94,8 +94,8 @@ public class ReportDbHelper extends SQLiteOpenHelper {
         updateReport.put(ReportContract.ReportEntry.MUNICIPALITY, reportUpdate.getMunipality());
 
 // Filter results WHERE "title" = 'My Title'
-        String selection = ReportContract.ReportEntry.DIAGNOSTIC_CODE + " = ?";
-        String[] selectionArgs = {reportUpdate.getIDCode()};
+        String selection = ReportContract.ReportEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(reportUpdate.getId())};
 
 
         int count = db.update(
@@ -110,7 +110,7 @@ public class ReportDbHelper extends SQLiteOpenHelper {
     public int DeleteReport(String codeID){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selection = ReportContract.ReportEntry.DIAGNOSTIC_CODE + " = ?";
+        String selection = ReportContract.ReportEntry._ID + " = ?";
         String[] selectionArgs = {codeID};
 
 

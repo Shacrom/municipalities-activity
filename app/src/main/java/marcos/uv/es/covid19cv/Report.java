@@ -11,6 +11,7 @@ public class Report {
     private ArrayList<SymtomModel> listSyn;
     private boolean contact;
     private String munipality;
+    private int id;
 
     public Report(String IDCode, String startSyn, ArrayList<SymtomModel> listSyn, boolean contact, String munipality) {
         this.IDCode = IDCode;
@@ -18,6 +19,14 @@ public class Report {
         this.listSyn = listSyn;
         this.contact = contact;
         this.munipality = munipality;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIDCode() {

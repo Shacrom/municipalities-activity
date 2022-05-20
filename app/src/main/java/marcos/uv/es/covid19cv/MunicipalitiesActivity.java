@@ -235,6 +235,7 @@ public class MunicipalitiesActivity extends AppCompatActivity {
             arrayAdapter = ArrayAdapter.createFromResource(MunicipalitiesActivity.this,R.array.order, android.R.layout.simple_spinner_item);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(arrayAdapter);
+
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -262,7 +263,6 @@ public class MunicipalitiesActivity extends AppCompatActivity {
 
                     }
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
